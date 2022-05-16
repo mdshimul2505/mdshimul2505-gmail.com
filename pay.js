@@ -1,7 +1,7 @@
 var progressTimer;
 
 if (window.jQuery) { 
-    var complete = 1;
+    var complete = 0;
     var statusText = 'Waiting payment...'
     function apirone_query(){
     email = $('input[name="email"]')[0].value;
@@ -18,19 +18,19 @@ if (window.jQuery) {
         data = JSON.parse(data);    
         //console.log(data);
         if (data.Status == 'complete') {
-            complete = 0; 
+            complete = 1; 
             clearTimeout(progressTimer);
             $(".with-uncomfirmed, .uncomfirmed").empty();
             statusText = "Payment complete";
         }
         if (data.Status == 'innetwork') {
-            innetwork = 0;
-            complete = 1;
+            innetwork = 1;
+            complete = 0;
             $(".with-uncomfirmed").text('(with uncomfirmed)');
             statusText = "Transaction in network (income amount: "+ data.innetwork_amount +" BTC)";
         }
         if (data.Status == 'waiting') {
-            complete = 1;
+            complete = 0;
             $(".with-uncomfirmed, .uncomfirmed").empty();
             statusText = "Waiting payment...";
         }
@@ -71,12 +71,9 @@ $(document).on('click', ".resend", function () {
     url: get_query,             // указываем URL и
     dataType : "text",                     // тип загружаемых данных
     success: function (data, textStatus) { // вешаем свой обработчик на функцию success
-        console.log(data);
         jQuery( ".resend-email" ).html('<div class="alert alert-success">Thank You. E-mail sent.</div>');
     }
     });
-/*    console.log(url);
-    console.log(email);*/
     return false;
 });
 
