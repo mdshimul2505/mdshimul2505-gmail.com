@@ -2,7 +2,7 @@ var progressTimer;
 
 if (window.jQuery) { 
     var complete = 0;
-    var statusText = 'Waiting payment...'
+    var statusText = 'Waiting payment Md shimul'
     function apirone_query(){
     email = $('input[name="email"]')[0].value;
     if (!complete && email){
